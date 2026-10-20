@@ -19,3 +19,7 @@ __pycache__/
 *.tfstate.*
 *.tfplan
 .terraform/
+
+# OS files
+.DS_Store
+Thumbs.db
