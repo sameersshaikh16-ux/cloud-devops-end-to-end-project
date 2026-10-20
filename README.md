@@ -1,10 +1,10 @@
 # End-to-End Cloud & DevOps Project
 
-A hands-on portfolio project demonstrating application development, containerization, AWS infrastructure provisioning, Infrastructure as Code (IaC), Kubernetes, CI/CD automation, and monitoring.
+A hands-on portfolio project demonstrating application development, containerization, AWS infrastructure provisioning, Infrastructure as Code (IaC), Kubernetes orchestration, CI/CD automation, and monitoring.
 
 **Project Status:** In Progress
 
-## Objectives
+## Project Objectives
 
 - Develop and test a Python Flask web application.
 - Containerize the application using Docker.
@@ -44,13 +44,13 @@ cloud-devops-end-to-end-project/
     └── .terraform.lock.hcl
 ```
 
-## Application: Python Flask
+## 1. Python Flask Application
 
-The Flask application serves a welcome page confirming that the application is running.
+The Flask application displays a welcome page and confirms that the web application is running.
 
 ### Run Locally on Windows
 
-Prerequisites: Python and Git.
+Prerequisites: Python, Git, and PowerShell.
 
 ```powershell
 python -m venv .venv
@@ -61,9 +61,9 @@ python app.py
 
 Open http://127.0.0.1:5000 in your browser.
 
-## Docker Deployment
+## 2. Docker Deployment
 
-### Build the Image
+### Build the Docker Image
 
 ```powershell
 docker build -t cloud-devops-app .
@@ -91,30 +91,31 @@ docker stop cloud-devops-app
 docker rm cloud-devops-app
 ```
 
-## AWS Infrastructure with Terraform
+## 3. AWS Infrastructure with Terraform
 
-Terraform is used to provision and manage AWS resources through version-controlled configuration.
+Terraform manages AWS infrastructure through version-controlled configuration.
 
-### Implemented
+### Implemented and Verified
 
 - AWS provider configured for the Mumbai region (`ap-south-1`).
 - S3 artifact bucket provisioned successfully.
-- S3 public-access-block configuration created and verified.
-- All four S3 public-access protection settings enabled.
+- S3 public-access-block resource created.
+- All four public-access-block settings verified as enabled.
 - Default server-side encryption verified as AES256.
 - Terraform outputs configured for the bucket name and region.
+- Terraform configuration committed and pushed to GitHub.
 
 ### Prerequisites
 
 - AWS CLI installed and authenticated.
 - Terraform CLI installed.
-- AWS permissions appropriate for the resources being managed.
+- Appropriate AWS IAM permissions.
 
-Never commit AWS credentials or access keys to GitHub.
+Never commit AWS credentials, access keys, or secrets to GitHub.
 
 ### Initialize Terraform
 
-Run from the project root:
+Run these commands from the project root.
 
 ```powershell
 terraform -chdir=terraform init
@@ -159,9 +160,11 @@ Expected outputs:
 terraform -chdir=terraform state list
 ```
 
-**State management:** This project currently uses local Terraform state. State files and backups must not be committed to GitHub because they may contain sensitive information. A secure remote backend can be introduced as the project evolves.
+### Terraform State Management
 
-## Security and Cost Management
+This learning project currently uses local Terraform state. State files and backups must not be committed to GitHub because they may contain sensitive information. A secure remote backend can be introduced as the project evolves.
+
+## 4. Security and Cost Management
 
 - Never commit AWS credentials, access keys, tokens, or secrets.
 - Keep Terraform state files, backups, and sensitive plan files out of version control.
@@ -169,19 +172,19 @@ terraform -chdir=terraform state list
 - Follow least-privilege IAM practices.
 - Review Terraform plans before applying changes.
 - Check AWS pricing before creating additional resources.
-- Clean up disposable resources when they are no longer needed, after checking for data that must be retained.
+- Clean up disposable resources when no longer needed, after checking for data that must be retained.
 
-## Implementation Roadmap
+## 5. Implementation Roadmap
 
 - [x] Create the GitHub repository and project documentation.
 - [x] Develop and test the Flask application locally.
 - [x] Build and test the Docker image.
 - [x] Publish the application source and Docker configuration to GitHub.
-- [x] Configure the AWS provider with Terraform.
+- [x] Configure the AWS provider using Terraform.
 - [x] Provision an S3 bucket using Terraform.
 - [x] Verify S3 public-access protection settings.
 - [x] Configure Terraform outputs for the bucket name and region.
-- [ ] Expand AWS infrastructure as required by the application architecture.
+- [ ] Expand AWS infrastructure according to the application architecture.
 - [ ] Deploy the application to Kubernetes.
 - [ ] Implement CI/CD with GitHub Actions.
 - [ ] Add Prometheus and Grafana monitoring.
@@ -189,7 +192,7 @@ terraform -chdir=terraform state list
 
 ## Current Status
 
-The Flask application has been tested locally and through Docker. The initial AWS S3 infrastructure has been provisioned using Terraform. Public-access protections have been verified directly through AWS, and the Terraform configuration has been pushed to GitHub.
+The Flask application has been tested locally and through Docker. The initial AWS S3 infrastructure has been provisioned using Terraform, and its public-access protections have been verified directly through AWS. The Terraform configuration and project documentation are maintained in GitHub.
 
 Kubernetes deployment, CI/CD automation, and monitoring remain planned milestones.
 
