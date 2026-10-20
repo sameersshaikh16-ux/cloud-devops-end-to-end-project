@@ -1,79 +1,61 @@
+
 # End-to-End Cloud & DevOps Project
 
-A hands-on portfolio project demonstrating the design, automation, deployment, and monitoring of a cloud-native application using AWS and modern DevOps tools.
+A hands-on portfolio project demonstrating application development, containerization, Infrastructure as Code (IaC), cloud infrastructure provisioning, Kubernetes orchestration, CI/CD automation, and monitoring.
 
-> **Project status:** In progress — implementation and validation will be documented milestone by milestone.
+**Project Status:** In Progress
 
-## Objectives
+## Project Objectives
 
-- Provision cloud infrastructure using Terraform.
-- Build and run a containerized web application using Docker.
-- Deploy and manage application workloads with Kubernetes.
-- Build a CI/CD workflow using GitHub Actions.
-- Add monitoring and operational documentation.
-- Practise troubleshooting, security, and infrastructure cleanup.
+- Develop and test a Python Flask web application.
+- Containerize the application using Docker.
+- Provision and manage AWS infrastructure using Terraform.
+- Deploy application workloads using Kubernetes.
+- Automate build and deployment workflows using GitHub Actions.
+- Implement monitoring using Prometheus and Grafana.
+- Practise security, troubleshooting, and infrastructure cleanup.
 
 ## Technology Stack
 
-| Technology | Planned use |
+| Technology | Purpose |
 |---|---|
-| AWS | Cloud infrastructure and networking |
+| Python / Flask | Web application |
+| Docker | Containerization |
+| AWS | Cloud infrastructure |
 | Terraform | Infrastructure as Code |
-| Docker | Container image build and execution |
-| Kubernetes | Application deployment and orchestration |
-| Git and GitHub | Version control and project documentation |
+| Kubernetes | Container orchestration |
+| Git / GitHub | Version control and documentation |
 | GitHub Actions | CI/CD automation |
-| Prometheus and Grafana | Monitoring and visualization |
+| Prometheus / Grafana | Monitoring and visualization |
+| Linux / PowerShell | Command-line operations |
 
 ## Repository Structure
 
 ```text
-app/                 # Application source code
-terraform/           # Infrastructure as Code
-docker/              # Dockerfile and container configuration
-kubernetes/           # Kubernetes manifests
-.github/workflows/    # CI/CD workflows
-monitoring/            # Monitoring configuration
-docs/                  # Architecture and implementation notes
+cloud-devops-end-to-end-project/
+├── app.py
+├── requirements.txt
+├── Dockerfile
+├── .dockerignore
+├── .gitignore
+├── README.md
+└── terraform/
+    ├── provider.tf
+    ├── s3.tf
+    └── .terraform.lock.hcl
 ```
 
-Directories and files will be added as each milestone is implemented.
+Additional directories and configuration files will be added as the project progresses.
 
-## Implementation Roadmap
+## Application: Python Flask
 
-- [x] Create the public GitHub repository.
-- [x] Initialize the README and Terraform .gitignore.
-- [ ] Define the application and architecture.
-- [ ] Build and test the application locally.
-- [ ] Containerize the application with Docker.
-- [ ] Provision the required infrastructure with Terraform.
-- [ ] Deploy the application to Kubernetes.
-- [ ] Implement CI/CD with GitHub Actions.
-- [ ] Add monitoring, testing, and troubleshooting documentation.
-- [ ] Validate deployment and cleanup procedures.
+The Flask application serves a welcome page and confirms that the application is running.
 
-## Security and Cost Awareness
+### Run Locally on Windows
 
-- Never commit AWS credentials, access keys, tokens, or other secrets.
-- Do not commit Terraform state files or sensitive plan files.
-- Use least-privilege access and secure configuration.
-- Review AWS resource costs before deployment and destroy disposable resources when they are no longer needed.
-
-## Documentation
-
-Architecture diagrams, deployment instructions, validation results, and troubleshooting notes will be added as the project progresses.
-
-## Disclaimer
-
-This is a learning and portfolio project. Planned features are not considered implemented until they have been built and tested.
-
-## Run the Application Locally
-
-### Prerequisites
-- Python 3.12 or compatible version
+Prerequisites:
+- Python 3.12 or a compatible version
 - Git
-
-### Setup
 
 ```powershell
 python -m venv .venv
@@ -84,7 +66,7 @@ python app.py
 
 Open http://127.0.0.1:5000 in your browser.
 
-## Run with Docker
+## Docker Deployment
 
 ### Build the Image
 
@@ -114,13 +96,108 @@ docker stop cloud-devops-app
 docker rm cloud-devops-app
 ```
 
+## AWS Infrastructure with Terraform
+
+Terraform is used to provision and manage AWS resources through version-controlled configuration.
+
+### Current Implementation
+
+- AWS provider configured for the Mumbai region (`ap-south-1`).
+- S3 artifact bucket provisioned successfully.
+- S3 public-access-block configuration created and verified.
+- All four S3 public-access protection settings enabled.
+- Default server-side encryption verified as AES256.
+- Terraform outputs configured for the bucket name and region.
+
+### Prerequisites
+
+- AWS CLI installed and authenticated.
+- Terraform CLI installed.
+- An AWS account with appropriate IAM permissions.
+
+Configure AWS credentials securely using an approved AWS CLI authentication method. Never commit credentials or access keys to GitHub.
+
+### Initialize Terraform
+
+Run commands from the project root:
+
+```powershell
+terraform -chdir=terraform init
+```
+
+### Validate the Configuration
+
+```powershell
+terraform -chdir=terraform validate
+```
+
+### Review Planned Changes
+
+```powershell
+terraform -chdir=terraform plan
+```
+
+Review the proposed changes before applying them.
+
+### Apply the Configuration
+
+```powershell
+terraform -chdir=terraform apply
+```
+
+Review the plan and type `yes` only when you approve the proposed changes.
+
+### View Terraform Outputs
+
+```powershell
+terraform -chdir=terraform output
+```
+
+Expected outputs include:
+
+- `artifact_bucket_name`
+- `artifact_bucket_region`
+
+### Inspect Managed Resources
+
+```powershell
+terraform -chdir=terraform state list
+```
+
+**State management:** This learning project currently uses local Terraform state. Terraform state files must never be committed to GitHub because they may contain sensitive information. A secure remote backend can be introduced as the project evolves.
+
+## Security and Cost Management
+
+- Never commit AWS credentials, access keys, tokens, or secrets.
+- Keep Terraform state files, backups, and sensitive plan files out of version control.
+- Keep S3 public-access protections enabled unless a reviewed requirement explicitly calls for otherwise.
+- Follow least-privilege IAM practices.
+- Review Terraform plans before applying changes.
+- Check AWS pricing before creating additional resources.
+- Clean up disposable resources when they are no longer required, after checking for data that must be retained.
+
+## Implementation Roadmap
+
+- [x] Create the GitHub repository and project documentation.
+- [x] Develop and test the Flask application locally.
+- [x] Build and test the Docker image.
+- [x] Publish the application source and Docker configuration to GitHub.
+- [x] Configure the AWS provider with Terraform.
+- [x] Provision an S3 bucket using Terraform.
+- [x] Verify S3 public-access protection settings.
+- [x] Configure Terraform outputs for the bucket name and region.
+- [ ] Expand AWS infrastructure as required by the application architecture.
+- [ ] Deploy the application to Kubernetes.
+- [ ] Implement CI/CD with GitHub Actions.
+- [ ] Add Prometheus and Grafana monitoring.
+- [ ] Document end-to-end testing, troubleshooting, and cleanup.
+
 ## Current Status
 
-- [x] GitHub repository initialized
-- [x] Flask web application created and tested
-- [x] Docker image built and tested
-- [x] Source code published to GitHub
-- [ ] AWS infrastructure using Terraform
-- [ ] Kubernetes deployment
-- [ ] GitHub Actions CI/CD
-- [ ] Prometheus and Grafana monitoring
+The Flask application has been tested locally and through Docker. The initial AWS S3 infrastructure has been provisioned using Terraform, its public-access protections have been verified directly through AWS, and the Terraform configuration has been pushed to GitHub.
+
+Kubernetes deployment, CI/CD automation, and monitoring remain planned milestones.
+
+## Disclaimer
+
+This is a learning and portfolio project. Features are marked as completed only after implementation and verification.
