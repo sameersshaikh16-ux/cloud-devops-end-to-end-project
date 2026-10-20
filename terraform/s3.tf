@@ -16,3 +16,11 @@ resource "aws_s3_bucket_public_access_block" "project_artifacts" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+output "artifact_bucket_name" {
+  description = "Name of the S3 artifact bucket"
+  value       = aws_s3_bucket.project_artifacts.bucket
+}
+output "artifact_bucket_region" {
+  description = "AWS region hosting the artifact bucket"
+  value       = aws_s3_bucket.project_artifacts.region
+}
