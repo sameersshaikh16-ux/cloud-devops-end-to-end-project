@@ -66,3 +66,61 @@ Architecture diagrams, deployment instructions, validation results, and troubles
 ## Disclaimer
 
 This is a learning and portfolio project. Planned features are not considered implemented until they have been built and tested.
+
+## Run the Application Locally
+
+### Prerequisites
+- Python 3.12 or compatible version
+- Git
+
+### Setup
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python app.py
+```
+
+Open http://127.0.0.1:5000 in your browser.
+
+## Run with Docker
+
+### Build the Image
+
+```powershell
+docker build -t cloud-devops-app .
+```
+
+### Run the Container
+
+```powershell
+docker run -d --name cloud-devops-app -p 5000:5000 cloud-devops-app
+```
+
+Open http://127.0.0.1:5000 in your browser.
+
+### Verify the Container
+
+```powershell
+docker ps
+docker logs cloud-devops-app
+```
+
+### Stop and Remove the Container
+
+```powershell
+docker stop cloud-devops-app
+docker rm cloud-devops-app
+```
+
+## Current Status
+
+- [x] GitHub repository initialized
+- [x] Flask web application created and tested
+- [x] Docker image built and tested
+- [x] Source code published to GitHub
+- [ ] AWS infrastructure using Terraform
+- [ ] Kubernetes deployment
+- [ ] GitHub Actions CI/CD
+- [ ] Prometheus and Grafana monitoring
