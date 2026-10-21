@@ -26,5 +26,17 @@ jobs:
 
       - name: Check Python syntax
         run: python -m py_compile app.py
+
       - name: Build Docker image
         run: docker build -t cloud-devops-app .
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Docker image
+        run: |
+          docker tag cloud-devops-app ${{ secrets.DOCKERHUB_USERNAME }}/cloud-devops-app:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/cloud-devops-app:latest
